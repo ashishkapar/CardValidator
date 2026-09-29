@@ -1,81 +1,46 @@
-data class Card(val userName:String?, val cardNumber: String,val cvv:String,val expDate:String){
+class Card{
 
-    val userNameClass = userName
-    val cardNumberClass = cardNumber
-    val cvvClass = cvv
-    val expDateClass = expDate
-
-    fun validateUser(): Int{
-        return if (!userNameClass.isNullOrEmpty()){
-            println("User Validated!")
-            0
-        } else{
-
-            1
-        }
-    }
-
-    fun validateNumber(): Int{
-        return if (cardNumberClass.replace("-","").length in 10..19){
-            println("Number Validated")
-            0
-        }
-        else{
-
-            1
-        }
-    }
-
-    fun validateCvv():Int {
-        return if (cvvClass.length in 3..4){
-            println("CVV Validated!")
-            0
-        }
-        else{
-            1
-        }
-    }
-
-    fun validateDate():Int{
-        return if ("/" in expDateClass && expDateClass.length in 3..5){
-            println("Date Validated1!")
-            0
-        }
-        else{
-            1
-        }
-    }
-
-}
-
-fun main(){
-    var response: Int
-    var card: Card?
-    while(true){
-        println("====================================================")
-        println("1. Add a card")
-        println("2. Validate the card")
-        println("3. Display the card")
-        println("4. Exit")
-        println("====================================================")
-        response = readln().toInt()
-        if (response in 1..4){
-            if (response == 1){
-                card = inputCard()
-                println(card)
+    fun cardChecker(cardNumber: String){
+        var rightToLeft = cardNumber.reversed()
+        rightToLeft = rightToLeft.replace(" ","")
+        var doubleC: Int = 0
+        var sumD: Int = 0
+        var sumUd: Int = 0
+        for (i in 0..<rightToLeft.length){
+            if (i%2==0){
+                sumUd += rightToLeft[i].digitToInt()
+            }
+            else{
+                doubleC = (rightToLeft[i].digitToInt())*2
+                if (doubleC>9){
+                    doubleC -= 9
+                    sumD += doubleC
+                }
+                else{
+                    sumD += doubleC
+                }
+                doubleC = 0
             }
         }
+        val sum = sumD+sumUd
+        if (sum %10 == 0){
+            println("Card Number is Numerically Valid")
+        }
+        else{
+            println("Card Number is Numerically Invalid")
+        }
     }
 }
 
-fun inputCard():Card{
-    print("Enter your username: ")
-    val username: String = readln()
+
+fun main(){
     print("Enter your card number: ")
-    val cardNum:String = readln()
-    print("Enter your cvv code:")
-    val cvv: String = readln()
-    print("Enter your exp date: ")
-    val exp:String = readln()
-    return Card(username,cardNum,cvv,exp)
+    val cardNum: String = readln()
+    if (cardNum.length>19){
+        println("Sorry but your card Num cant be greater than 16")
+    }
+    else{
+        val card = Card()
+        card.cardChecker(cardNum)
+    }
 }
