@@ -14,6 +14,7 @@ This is a console based project built in Kotlin.
 - How banking application optimize load in their servers by numerically validating a card
 - How the Luhn's Algorithm works
 - How to apply text written algorithm in my program
+- How to work in a real life problem
 
 
 ## Thankyou :>
