@@ -1,3 +1,4 @@
+import java.time.YearMonth
 class Card{
     fun cardChecker(cardNumber: String):Boolean{
         var rightToLeft = cardNumber.reversed()
@@ -47,6 +48,31 @@ class Card{
         }
         return false
     }
+    fun dateChecker(date:String): Boolean{
+        val lst: MutableList<String> = date.split("/").toMutableList()
+        if (lst[0].length==1){
+            lst[0] = "0"+lst[0]
+        }
+        if (lst[1].length==1){
+            lst[1] = "0"+lst[1]
+        }
+        val currentDate = YearMonth.now()
+        val currentMonth = currentDate.month.toString()
+        val currentYear = currentDate.year.toString()
+
+        if (currentYear.toInt()<lst[1].toInt()){
+            return true
+        }
+        else if(currentYear.toInt()==lst[1].toInt()){
+            if(currentMonth.toInt()<lst[0].toInt()){
+                return true
+            }
+            else if (currentMonth.toInt()==lst[0].toInt()){
+                return true
+            }
+        }
+        return false
+    }
 }
 
 
@@ -67,6 +93,8 @@ fun main(){
             val response: Boolean = card.cvvChecker(cvv,network)
             if (response){
                 println("The CVV Provided is Valid")
+                print("Enter the exp date [MM/YY]: ")
+                
             }
             else{
                 println("The CVV Provided is Invalid")
