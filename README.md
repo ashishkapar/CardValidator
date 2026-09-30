@@ -15,6 +15,7 @@ This is a console based project built in Kotlin.
 - How the Luhn's Algorithm works
 - How to apply text written algorithm in my program
 - How to work in real life problems effectively
+- Tried fixing the exp date problem
 
 
 ## Thankyou :>
