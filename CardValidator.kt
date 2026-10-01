@@ -43,7 +43,7 @@ class Card{
         if (cvv.length == 4 && cleanedNetwork in fourList){
             return true
         }
-        else if(cvv.length == 3 &&network in threeList){
+        else if(cvv.length == 3 &&cleanedNetwork in threeList){
             return true
         }
         return false
@@ -57,13 +57,13 @@ class Card{
             lst[1] = "0"+lst[1]
         }
         val currentDate = YearMonth.now()
-        val currentMonth = currentDate.month.toString()
-        val currentYear = currentDate.year.toString()
-
-        if (currentYear.toInt()<lst[1].toInt()){
+        val currentMonth = currentDate.monthValue.toString()
+        val currentYear = (currentDate.year)
+        val lastTwo = (currentYear%100).toString()
+        if (lastTwo.toInt()<lst[1].toInt()){
             return true
         }
-        else if(currentYear.toInt()==lst[1].toInt()){
+        else if(lastTwo.toInt()==lst[1].toInt()){
             if(currentMonth.toInt()<lst[0].toInt()){
                 return true
             }
@@ -80,7 +80,7 @@ fun main(){
     print("Enter your card number: ")
     val cardNum: String = readln()
     if (cardNum.length>19){
-        println("Sorry but your card Num cant be greater than 16\n\n")
+        println("Sorry but your card Num cant be lesser than 19\n\n")
     }
     else{
         val card = Card()
@@ -94,7 +94,15 @@ fun main(){
             if (response){
                 println("The CVV Provided is Valid")
                 print("Enter the exp date [MM/YY]: ")
-                
+                val date:String = readln()
+                val responseDate = card.dateChecker(date)
+                if (responseDate){
+                    println("Valid Exp Date ")
+                }
+                else{
+                    println("Invalid Exp Date")
+                }
+
             }
             else{
                 println("The CVV Provided is Invalid")
